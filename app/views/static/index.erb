@@ -1,2 +1,28 @@
-<h1>Hello World</h1>
-<p>See Me in views/static/index.html.erb</p>
+<h1 id="quorahead">Sign up to Facebook</h1>
+
+<% if params[:error] %>
+	<p> You have not logged in!</p>
+<% end %>
+
+<div id="signup">
+	<h1>Sign up for an Facebook account!</h1>
+		<form method=post action="/signup">
+			<input type="text" placeholder="Full Name" name="user[full_name]">
+			<input type="text" placeholder="Email" name="user[email]"><br>
+			<input type="password" placeholder="Password" name="user[password]">
+			<input type="submit" value="Sign up">
+		</form>
+	<p><%= @msg %></p>
+	<p>Sign up to Facebook to view your friend account!!</p>
+</div>
+
+<br>
+
+<div id="login">
+	<h2>Login to Facebook</h2>
+		<form method=post action="/login">
+			<input type="text" placeholder="Email" name="user[email]"><br>
+			<input type="password" placeholder="Password" name="user[password]"><br>
+			<input type="submit" value="Login">
+		</form>
+</div>

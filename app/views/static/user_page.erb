@@ -1,0 +1,15 @@
+<h1><%=@uu%></h1>
+
+<% Status.all.each do |s| %>
+	<p><%=s.status%></p>
+	<form method=post action='/likes/<%= s.id %>' value="Likes">
+		<button type="submit">Likes
+			<span><%= s.likes.where(likes: 1).count %></span>
+		</button>
+	</form>
+<%end%>
+
+<form action="/update/<%=s.id%>" method="post">
+			<input type="text" placeholder="Change your comment here!" name="status">	
+			<input type="submit" value="Update">
+		</form>

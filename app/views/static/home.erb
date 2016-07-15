@@ -1,0 +1,28 @@
+<a href="/usermain/<%=current_user.id%>"><span>My Profile</span></a>
+
+	<h1 id="wel">Welcome! <%= current_user.email %></h1>
+	<a style="margin-left: 70%" href='/logout'><button>Log Out</button></a>
+
+<div>
+<form  method=post action="/status">
+		<input type="text" placeholder="What do u think today?" name="status">
+		<input type="submit" value="Post Status!">
+</form>
+</div>
+
+<div>
+	<% Status.all.each do |s| %>
+		<a href="/user/<%=s.user_id%>"><%=s.user.full_name%></a><br>
+		<a href="/status<%=s.id%>"><%= s.status %></a>
+		
+
+		
+
+		<form method=post action='/likes/<%= s.id %>' value="Likes">
+			<button type="submit">Likes
+			<span><%= s.likes.where(likes: 1).count %></span>
+		</button>
+		</form>
+
+	<%end%>
+</div>
