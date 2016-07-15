@@ -1,10 +1,11 @@
 <h1><%=@uu%></h1>
+<a style="margin-left: 70%" href='/home'><button>Back</button></a>
 
 <div>
-	<% Current_user.id.all.each do |s| %>
-		<a href="/status<%=s.id%>"><%= s.id.status %></a>
+	<% @status.all.each do |s| %>
+		<a href="/status<%=s.id%>"><%= s.status %></a>
 
-		<form method=post action='/likes/<%= s.id %>' value="Likes">
+		<form method=post action='/likes/<%= s.id %>/main' value="Likes">
 			<button type="submit">Likes
 				<span><%= s.likes.where(likes: 1).count %></span>
 			</button>

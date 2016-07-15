@@ -8,6 +8,7 @@ end
 
 get '/user/:id' do
 	@user = User.find(params[:id])
+	@status = @user.statuses
 	@uu = @user.full_name
 	erb :"static/user_page"
 end
@@ -15,6 +16,7 @@ end
 get '/usermain/:id' do
 	@user = User.find(params[:id])
 	@status = @user.statuses
+	@uu = @user.full_name
 	erb:"static/profile"
 end
 
@@ -37,6 +39,36 @@ post '/likes/:id' do
 		end
 		@statuslike.save
 		redirect '/home'
+end
+
+post '/likes/:id/user' do
+	@statuslike = Like.find_by(status_id:params[:id], user_id: current_user.id)
+		if @statuslike
+			if @statuslike.likes == 1
+				@statuslike.likes = 0
+			elsif @statuslike.likes == 0
+				@statuslike.likes = 1
+			end
+		else
+			@statuslike = Like.new(status_id: params[:id], user_id: current_user.id, likes: 1)
+		end
+		@statuslike.save
+		erb :"static/user_page"
+end
+
+post '/likes/:id/main' do
+	@statuslike = Like.find_by(status_id:params[:id], user_id: current_user.id)
+		if @statuslike
+			if @statuslike.likes == 1
+				@statuslike.likes = 0
+			elsif @statuslike.likes == 0
+				@statuslike.likes = 1
+			end
+		else
+			@statuslike = Like.new(status_id: params[:id], user_id: current_user.id, likes: 1)
+		end
+		@statuslike.save
+		erb :"static/profile"
 end
 
 post '/delete/:id' do
